@@ -9,9 +9,9 @@ const Home = () => {
         <div>
             <HeroCarousel />
             <Features />
+            <Category />
             <Product />
             <DiscountSection />
-            <Category />
         </div>
     );
 };

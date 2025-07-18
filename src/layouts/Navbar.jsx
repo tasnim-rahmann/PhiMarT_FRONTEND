@@ -12,7 +12,7 @@ const Navbar = () => {
                         <ul
                             tabIndex={0}
                             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
-                            <li><a>Home</a></li>
+                            <li><Link to="/">Home</Link ></li>
                             {/* <li>
                                 <a>Parent</a>
                                 <ul className="p-2">
@@ -20,14 +20,14 @@ const Navbar = () => {
                                     <li><a>Submenu 2</a></li>
                                 </ul>
                             </li> */}
-                            <li><a>Product</a></li>
+                            <li><Link to="/shop">Product</Link></li>
                         </ul>
                     </div>
-                    <a className="cursor-pointer transition-all lg:px-4 py-2 text-lg lg:hover:text-[21px] lg:text-xl">PhiMart</a>
+                    <a className="cursor-pointer lg:px-4 py-2 text-lg lg:hover:text-gray-400 lg:hover:font-medium lg:text-xl transition-all duration-500">MyMart</a>
                 </div>
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal px-1">
-                        <li><a>Home</a></li>
+                        <li><Link to="/">Home</Link ></li>
                         {/* <li>
                             <details>
                                 <summary>Parent</summary>
@@ -37,7 +37,7 @@ const Navbar = () => {
                                 </ul>
                             </details>
                         </li> */}
-                        <li><a>Products</a></li>
+                        <li><Link to="/shop">Product</Link></li>
                     </ul>
                 </div>
                 <div className="navbar-end flex gap-4">

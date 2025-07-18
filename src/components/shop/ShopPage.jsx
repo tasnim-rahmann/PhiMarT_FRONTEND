@@ -1,44 +1,59 @@
-import { useEffect, useState } from "react";
-import apiClient from "../../services/api-client";
+import { useState } from "react";
 import ProductList from "./ProductList";
 import Pagination from "./Pagination";
+import useFetchProduct from "../hooks/useFetchProduct";
+import FilterSection from "./FilterSection";
+import useFetchCategories from "../hooks/useFetchCategories";
 
 const ShopPage = () => {
-    const [products, setProducts] = useState([]);
-    const [isLoading, setIsLoading] = useState(false);
-    const [totalPages, setTotalPages] = useState(1);
     const [currentPage, setCurrentPage] = useState(1);
-    const [pageSize, setPageSize] = useState(null);
+    const [priceRange, setPriceRange] = useState([0, 1000]);
+    const [selectedCategory, setSelectedCategory] = useState("");
+    const [searchQuery, setSearchQuery] = useState("");
+    const [sortOrder, setSortOrder] = useState("");
 
-    const fetchProducts = async () => {
-        try {
-            setIsLoading(true);
-            const response = await apiClient.get(`/products/?page=${currentPage}`);
-            const data = response.data;
+    const { products, isLoading, totalPages } = useFetchProduct(
+        currentPage,
+        priceRange,
+        selectedCategory,
+        searchQuery,
+        sortOrder
+    );
 
-            setProducts(data.results);
+    const categories = useFetchCategories();
 
-            if (!pageSize && currentPage === 1 && data.results.length > 0) {
-                setPageSize(data.results.length);
-                setTotalPages(Math.ceil(data.count / data.results.length));
-            }
-
-            if (pageSize) {
-                setTotalPages(Math.ceil(data.count / pageSize));
-            }
-        } catch (err) {
-            console.error(err);
-        } finally {
-            setIsLoading(false);
-        }
+    const handlePriceChange = (index, value) => {
+        setPriceRange((prev) => {
+            const newRange = [...prev];
+            newRange[index] = value;
+            return newRange;
+        });
+        setCurrentPage(1);
     };
 
-    useEffect(() => {
-        fetchProducts();
-    }, [currentPage]);
-
     return (
-        <div>
+        <div className="max-w-[1400px] mx-auto px-2 py-8">
+            <h1 className="text-3xl font-bold mb-8">Shop Our Products</h1>
+            <FilterSection
+                priceRange={priceRange}
+                handlePriceChange={handlePriceChange}
+                categories={categories}
+                selectedCategory={selectedCategory}
+                handleCategoryChange={(value) => {
+                    setSelectedCategory(value);
+                    setCurrentPage(1);
+                }}
+                searchQuery={searchQuery}
+                handleSearchQuery={(value) => {
+                    setSearchQuery(value);
+                    setCurrentPage(1);
+                }}
+                sortOrder={sortOrder}
+                handleSorting={(value) => {
+                    setSortOrder(value);
+                    setCurrentPage(1);
+                }}
+            />
             <ProductList products={products} isLoading={isLoading} />
             <Pagination
                 totalPage={totalPages}

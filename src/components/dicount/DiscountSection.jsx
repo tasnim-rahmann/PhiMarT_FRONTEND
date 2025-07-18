@@ -4,7 +4,7 @@ import DiscountTimer from "./DiscountTimer";
 
 const DiscountSection = () => {
     return (
-        <section className="w-full h-[450px] md:h-[600px] bg-cover bg-center flex flex-col md:flex-row justify-center items-center px-2" style={{ backgroundImage: `url(${bgImg})` }}>
+        <section className="w-full h-[500px] md:h-[600px] bg-cover bg-center flex flex-col md:flex-row justify-center items-center px-2" style={{ backgroundImage: `url(${bgImg})` }}>
             <div className="w-full max-w-[1400px] mx-auto px-4 md:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
                 {/* Left Content */}
                 <div className="w-1/2 flex items-center justify-center md:justify-start">

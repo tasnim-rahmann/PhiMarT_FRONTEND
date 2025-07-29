@@ -1,4 +1,12 @@
+import { useForm } from "react-hook-form";
+
 const Register = () => {
+    const { register, handleSubmit, watch, formState: { errors } } = useForm();
+
+    const onSubmit = (data) => {
+        delete data.confirm_password;
+        console.log(data);
+    };
 
     return (
         <div className="flex min-h-screen items-center justify-center px-4 py-12 bg-base-200">
@@ -25,7 +33,7 @@ const Register = () => {
                         Create an account to get started
                     </p>
 
-                    <form className="space-y-4 mt-4">
+                    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 mt-4">
                         <div className="form-control">
                             <label className="label" htmlFor="first_name">
                                 <span className="label-text">First Name</span>
@@ -35,7 +43,11 @@ const Register = () => {
                                 type="text"
                                 placeholder="John"
                                 className="input input-bordered w-full"
+                                {...register("first_name", { required: "First Name is Required" })}
                             />
+                            {errors.first_name && (
+                                <span className="lable-text-alt text-error">{errors.first_name.message}</span>
+                            )}
                         </div>
 
                         <div className="form-control">
@@ -47,7 +59,11 @@ const Register = () => {
                                 type="text"
                                 placeholder="Doe"
                                 className="input input-bordered w-full"
+                                {...register("last_name", { required: "Last Name is Required" })}
                             />
+                            {errors.last_name && (
+                                <span className="lable-text-alt text-error">{errors.last_name.message}</span>
+                            )}
                         </div>
 
                         <div className="form-control">
@@ -59,7 +75,11 @@ const Register = () => {
                                 type="email"
                                 placeholder="name@example.com"
                                 className="input input-bordered w-full"
+                                {...register("email", { required: "Email is Required" })}    
                             />
+                            {errors.email && (
+                                <span className="lable-text-alt text-error">{errors.email.message}</span>
+                            )}
                         </div>
 
                         <div className="form-control">
@@ -71,6 +91,7 @@ const Register = () => {
                                 type="text"
                                 placeholder="7/A Dhanmondi, Dhaka"
                                 className="input input-bordered w-full"
+                                {...register("address")}
                             />
                         </div>
 
@@ -83,6 +104,7 @@ const Register = () => {
                                 type="text"
                                 placeholder="0123456789"
                                 className="input input-bordered w-full"
+                                {...register("phone_number")}
                             />
                         </div>
 
@@ -95,7 +117,17 @@ const Register = () => {
                                 type="password"
                                 placeholder="••••••••"
                                 className="input input-bordered w-full"
+                                {...register("password", {
+                                    required: "Password is Required",
+                                    minLength: {
+                                        value: 8,
+                                        message: "Password must be at least 8 characters",
+                                    },
+                                })}
                             />
+                            {errors.password && (
+                                <span className="lable-text-alt text-error">{errors.password.message}</span>
+                            )}
                         </div>
 
                         <div className="form-control">
@@ -107,10 +139,17 @@ const Register = () => {
                                 type="password"
                                 placeholder="••••••••"
                                 className="input input-bordered w-full"
+                                {...register("confirm_password", {
+                                    required: "Confirm Password is Required",
+                                    validate: (value) => value === watch("password") || "Password do not match",
+                                })}
                             />
+                            {errors.confirm_password && (
+                                <span className="lable-text-alt text-error">{errors.confirm_password.message}</span>
+                            )}
                         </div>
 
-                        <button type="submit" className="btn btn-primary w-full"></button>
+                        <button type="submit" className="btn btn-primary w-full">Sign Up</button>
                     </form>
 
                     <div className="text-center mt-4">

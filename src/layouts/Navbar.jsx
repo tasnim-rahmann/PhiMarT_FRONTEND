@@ -2,7 +2,7 @@ import { Link } from "react-router";
 import useAuthContext from "../hooks/useAuthContext";
 
 const Navbar = () => {
-    const { user } = useAuthContext();
+    const { user, logoutUser } = useAuthContext();
 
     return (
         <div>
@@ -69,7 +69,7 @@ const Navbar = () => {
                                         </a>
                                     </li>
                                     <li><a>Settings</a></li>
-                                    <li><a>Logout</a></li>
+                                    <li><a onClick={logoutUser}>Logout</a></li>
                                 </ul>
                             </div>
                         </div>

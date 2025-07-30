@@ -12,19 +12,19 @@ import ActivateAccount from "../components/ragistrations/ActivateAccount";
 const AppRoutes = () => {
     return (
         <Routes>
-            <Route element = {<MainLayout />}>
-                <Route path="" element = {<Home />} />
-                <Route path="about" element = {<About />}/>
-                <Route path="shop" element={<Shop />}/>
-                <Route path="login" element={<Login />}/>
-                <Route path="register" element={<Register />}/>
+            <Route element={<MainLayout />}>
+                <Route path="" element={<Home />} />
+                <Route path="about" element={<About />} />
+                <Route path="shop" element={<Shop />} />
+                <Route path="login" element={<Login />} />
+                <Route path="register" element={<Register />} />
                 {/* <Route path="activate/:uid/:token" element={<ActivateAccount />} /> */}
-                <Route path="dashboard" element={
-                    <PrivateRoute>
-                        <Dashboard />
-                    </PrivateRoute>
-                }/>
             </Route>
+            <Route path="dashboard" element={
+                <PrivateRoute>
+                    <Dashboard />
+                </PrivateRoute>
+            } />
         </Routes>
     );
 };

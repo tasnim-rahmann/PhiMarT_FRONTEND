@@ -9,7 +9,7 @@ import defaultImg from "../../assets/default_product.jpg";
 const ProductImageGallery = ({ images, ProductName }) => {
     const [thumbsSwiper] = useState(null);
     const displayImages = images.length > 0 ? images : [{ image: defaultImg }];
-    console.log(displayImages);
+    // console.log(displayImages);
 
     return (
         <div className="rounded-lg border m-4 overflow-hidden">

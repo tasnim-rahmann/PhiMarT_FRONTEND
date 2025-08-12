@@ -16,7 +16,6 @@ const ProductDetail = () => {
         apiClient.get(`/products/${id}/`)
         .then((res) => {
             setProduct(res.data);
-            console.log(res.data);
             setLoading(false);
         })
     }, [id]);

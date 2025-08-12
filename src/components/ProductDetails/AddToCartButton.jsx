@@ -1,10 +1,13 @@
 import { useState } from "react";
 import { FaCheck, FaMinus, FaPlus, FaShoppingCart } from "react-icons/fa";
+import useCartContext from "../../hooks/useCartContext";
 
 export default function AddToCartDesign({ product }) {
     const [quantity, setQuantity] = useState(1);
     const [isAdding, setIsAdding] = useState(false);
     const [isAdded, setIsAdded] = useState(false);
+    const { addCartItem } = useCartContext();
+
 
     const increaseQuantity = () => {
         if (quantity < product.stock) {
@@ -16,16 +19,25 @@ export default function AddToCartDesign({ product }) {
             setQuantity(quantity - 1);
         }
     };
-    const addToCart = () => {
-        // Simulate API Call
+    const addToCart = async() => {
         setIsAdding(true);
-        setTimeout(() => {
-            setIsAdding(false);
+        try{
+            await addCartItem(product.id, quantity);
             setIsAdded(true);
-            setTimeout(() => {
-                setIsAdded(false);
-            }, 2000)
-        }, 1000);
+            setIsAdding(false);
+        } catch(error) {
+            console.log(error);
+            setIsAdding(false);
+        }
+        // Simulate API Call
+        // setIsAdding(true);
+        // setTimeout(() => {
+        //     setIsAdding(false);
+        //     setIsAdded(true);
+        //     setTimeout(() => {
+        //         setIsAdded(false);
+        //     }, 2000)
+        // }, 1000);
     };
     return (
         <div className="space-y-4 m-4">
@@ -48,7 +60,7 @@ export default function AddToCartDesign({ product }) {
             </div>
 
             {/* Add to Cart Button */}
-            <button className="btn btn-primary w-full" onClick={addToCart} disabled={isAdding || isAdded || product.stock===0}>
+            <button className="btn btn-primary w-full" onClick={addToCart} disabled={isAdding || isAdded || product.stock === 0}>
                 {isAdding ? (
                     <span className="flex items-center">
                         <span className="loading loading-spinner loading-sm mr-2"></span>

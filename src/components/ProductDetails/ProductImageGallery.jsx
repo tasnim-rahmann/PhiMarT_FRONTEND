@@ -8,7 +8,7 @@ import defaultImg from "../../assets/default_product.jpg";
 
 const ProductImageGallery = ({ images, ProductName }) => {
     const [thumbsSwiper] = useState(null);
-    const displayImages = images.length > 0 ? images : [defaultImg];
+    const displayImages = images.length > 0 ? images : [{ image: defaultImg }];
     console.log(displayImages);
 
     return (
@@ -24,7 +24,7 @@ const ProductImageGallery = ({ images, ProductName }) => {
                 {displayImages.map((imageObj, index) => (
                     <SwiperSlide key={index}>
                         <div className="aspect-square bg-base-100">
-                            <img src={imageObj} alt={ProductName} className="h-full w-full"/>
+                            <img src={imageObj.image} alt={ProductName} className="h-full w-full object-cover" />
                         </div>
                     </SwiperSlide>
                 ))}

@@ -1,30 +1,28 @@
-import { Link } from "react-router";
+import { Link, useParams } from "react-router";
 import AddToCartButton from "../components/ProductDetails/AddToCartButton";
 import ProductImageGallery from "../components/ProductDetails/ProductImageGallery";
 import { FaArrowLeft } from "react-icons/fa";
-import { Suspense } from "react";
+import { Suspense, useEffect, useState } from "react";
+import apiClient from "../services/api-client";
 
 
 const ProductDetail = () => {
-    const product = {
-        id: 1,
-        name: "Smartphone",
-        description: "High-quality smartphone for everyday use.",
-        price: 299.99,
-        stock: 150,
-        category: 1,
-        price_with_tax: 329.99,
-        images: [
-            {
-                id: 1,
-                image: "https://res.cloudinary.com/drxot8gia/image/upload/v1754916181/g6vdbbf3guxjbokeqlgj.png"
-            },
-            {
-                id: 25,
-                image: "https://res.cloudinary.com/drxot8gia/image/upload/v1754916493/ud4t2kuhgis8w6aija2t.png"
-            }
-        ]
-    }
+    const [product, setProduct] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const {id} = useParams();
+
+    useEffect(() => {
+        setLoading(true);
+        apiClient.get(`/products/${id}/`)
+        .then((res) => {
+            setProduct(res.data);
+            console.log(res.data);
+            setLoading(false);
+        })
+    }, [id]);
+
+    if(loading) return <div>Loading...</div>
+    if(!product) return <div>Product Not Found!</div>
 
     return (
         <div className="w-3/4 mx-auto px-4 py-8">
@@ -45,7 +43,7 @@ const ProductDetail = () => {
                     }
                 >
                     <ProductImageGallery
-                        images={product?.images}
+                        images={product.images}
                         productName={product.name}
                     />
                 </Suspense>

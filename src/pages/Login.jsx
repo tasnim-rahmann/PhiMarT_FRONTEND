@@ -15,7 +15,7 @@ const Login = () => {
         try {
             await loginUser(data);
             navigate("/dashboard");
-        } catch(err) {
+        } catch (err) {
             console.log(err);
         } finally {
             setIsLoading(false);

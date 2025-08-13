@@ -19,25 +19,16 @@ export default function AddToCartDesign({ product }) {
             setQuantity(quantity - 1);
         }
     };
-    const addToCart = async() => {
+    const addToCart = async () => {
         setIsAdding(true);
-        try{
+        try {
             await addCartItem(product.id, quantity);
             setIsAdded(true);
             setIsAdding(false);
-        } catch(error) {
+        } catch (error) {
             console.log(error);
             setIsAdding(false);
         }
-        // Simulate API Call
-        // setIsAdding(true);
-        // setTimeout(() => {
-        //     setIsAdding(false);
-        //     setIsAdded(true);
-        //     setTimeout(() => {
-        //         setIsAdded(false);
-        //     }, 2000)
-        // }, 1000);
     };
     return (
         <div className="space-y-4 m-4">

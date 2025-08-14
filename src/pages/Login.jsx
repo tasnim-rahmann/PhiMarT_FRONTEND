@@ -13,8 +13,10 @@ const Login = () => {
     const onSubmit = async (data) => {
         setIsLoading(true);
         try {
-            await loginUser(data);
-            navigate("/dashboard");
+            const response = await loginUser(data);
+            if (response.success) {
+                navigate("/dashboard");
+            };
         } catch (err) {
             console.log(err);
         } finally {

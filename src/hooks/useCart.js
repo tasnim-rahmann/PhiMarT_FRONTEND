@@ -12,7 +12,6 @@ const useCart = () => {
   const createOrGetCart = useCallback(async () => {
     setLoading(true);
     try {
-      console.log(authToken);
       const response = await authApiClient.post("/carts/");
       if (!cartId) {
         localStorage.setItem("cartId", response.data.id);
@@ -24,7 +23,7 @@ const useCart = () => {
     } finally {
       setLoading(false);
     }
-  }, [authToken, cartId]);
+  }, [cartId]);
 
   const addCartItem = useCallback(
     async (product_id, quantity) => {
@@ -81,6 +80,7 @@ const useCart = () => {
   return {
     cart,
     loading,
+    cartId,
     createOrGetCart,
     addCartItem,
     updateCartItemQuantity,

@@ -75,8 +75,10 @@ const useAuth = () => {
             setAuthTokens(response.data);
             localStorage.setItem("authTokens", JSON.stringify(response.data));
             await fetchUserProfile();
+            return { success: true };
         } catch (error) {
             setErrorMsg(error.response?.data?.detail);
+            return { success: false };
         }
     };
 
@@ -96,6 +98,7 @@ const useAuth = () => {
         setAuthTokens(null);
         setUser(null);
         localStorage.removeItem("authTokens");
+        localStorage.removeItem("cartId");
     };
 
     return { user, errorMsg, loginUser, registerUser, logoutUser, updateUserProfile, changePassword };

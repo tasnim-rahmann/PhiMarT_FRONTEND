@@ -22,7 +22,9 @@ const Navbar = () => {
                             <li><Link to="/shop">Product</Link></li>
                         </ul>
                     </div>
-                    <a className="cursor-pointer lg:px-4 py-2 text-lg lg:hover:text-gray-400 lg:hover:font-medium lg:text-xl transition-all duration-500">MyMart</a>
+                    <Link to="/">
+                        <h1 className="text-xl font-bold">MyMart</h1>
+                    </Link>
                 </div>
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal px-1">

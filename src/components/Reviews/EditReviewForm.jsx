@@ -6,7 +6,6 @@ const EditReviewForm = ({
     onCancelEdit,
     onSave,
 }) => {
-    console.log(editReview);
     return (
         <div className="mt-4 space-y-4 bg-base-200 p-4 rounded-lg">
             <div>

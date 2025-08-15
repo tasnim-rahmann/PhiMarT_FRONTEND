@@ -7,7 +7,7 @@ import apiClient from "../../services/api-client";
 import useAuthContext from "../../hooks/useAuthContext";
 
 const ReviewSection = () => {
-    const { productId } = useParams();
+    const { id } = useParams();
     const [reviews, setReviews] = useState([]);
     const [userCanReview, setUserCanReview] = useState(false);
     const [isLoading, setLoading] = useState(true);
@@ -18,8 +18,7 @@ const ReviewSection = () => {
     const fetchReviews = async () => {
         setLoading(true);
         try {
-            const res = await apiClient.get(`/products/${productId}/reviews/`);
-            console.log(res.data);
+            const res = await apiClient.get(`/products/${id}/reviews/`);
             setReviews(res.data);
         } catch (error) {
             console.log("Error fetching reviews", error);
@@ -29,9 +28,8 @@ const ReviewSection = () => {
     };
 
     const onSubmit = async (data) => {
-        console.log(data);
         try {
-            await authApiClient.post(`/products/${productId}/reviews/`, data);
+            await authApiClient.post(`/products/${id}/reviews/`, data);
             fetchReviews();
         } catch (error) {
             console.log("Error submitting review", error);
@@ -40,7 +38,7 @@ const ReviewSection = () => {
 
     const checkUserPermission = async () => {
         try {
-            const res = await authApiClient.get(`/orders/has-ordered/${productId}/`);
+            const res = await authApiClient.get(`/orders/has-ordered/${id}/`);
             setUserCanReview(res.data.hasOrdered);
         } catch (error) {
             console.log(error);
@@ -50,7 +48,7 @@ const ReviewSection = () => {
     const handleUpdateReview = async (reviewId) => {
         try {
             await authApiClient.put(
-                `/products/${productId}/reviews/${reviewId}/`,
+                `/products/${id}/reviews/${reviewId}/`,
                 editReview
             );
             setEditingId(null);
@@ -62,7 +60,7 @@ const ReviewSection = () => {
 
     const handleDeleteReview = async (reviewId) => {
         try {
-            await authApiClient.delete(`/products/${productId}/reviews/${reviewId}/`);
+            await authApiClient.delete(`/products/${id}/reviews/${reviewId}/`);
             fetchReviews();
         } catch (error) {
             console.log(error);

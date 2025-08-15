@@ -12,7 +12,6 @@ const ReviewCard = ({
     onSaveEdit,
     onDeleteClick,
 }) => {
-    console.log(review);
     return (
         <div className="card bg-base-100 shadow-md hover:shadow-lg transition-shadow border border-base-200 rounded-xl overflow-hidden">
             <div className="card-body">

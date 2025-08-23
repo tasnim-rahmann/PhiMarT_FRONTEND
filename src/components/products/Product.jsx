@@ -16,7 +16,7 @@ const Product = () => {
         apiClient.get('/products/')
             .then((res) => setProducts(res.data.results))
             .catch(err => setError(err.message))
-            .finally(() => setIsLoading(false))
+            .finally(() => setIsLoading(false));
     }, []);
 
     return (

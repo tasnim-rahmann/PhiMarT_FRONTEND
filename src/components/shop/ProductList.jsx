@@ -1,4 +1,4 @@
-import ProductItem from "../products/ProductItem"
+import ProductItem from "../products/ProductItem";
 
 const ProductList = ({ products, isLoading }) => {
     if (isLoading)
